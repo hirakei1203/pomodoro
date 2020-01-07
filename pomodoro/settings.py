@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'timer.apps.TimerConfig'
+    'timer.apps.TimerConfig',
+    'materializecssform',
 ]
 
 MIDDLEWARE = [
