@@ -44,6 +44,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     return elems;
   }
 
+
   var frag;
   function parseHTML(str) {
     if (!frag) {

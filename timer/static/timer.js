@@ -1,0 +1,6 @@
+$(function(){
+
+$(".dropdown-trigger").dropdown();
+
+})
+
