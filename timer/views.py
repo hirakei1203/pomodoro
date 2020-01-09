@@ -14,9 +14,9 @@ def signup(request):
       if form.is_valid():
           user_instance =  form.save()
           login(request, user_instance)
-          return redirect('timer:index')
+          return redirect('index')
   else:
-      form = UserCreationForm()
+      form = CustomUserCreationForm()
 
   context = {
     "form": form
