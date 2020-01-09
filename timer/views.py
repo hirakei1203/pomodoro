@@ -11,6 +11,14 @@ def signup(request):
     form = UserCreationForm(request.POST)
     if form.is_valid():
       user_instacnce =  form.save()
-      login()
+      login(request, user_instance)
+      return redirect('timer:index')
+    else:
+      form = UserCreationForm()
+
+    context = {
+      "form": form
+    }
+    return render{request, 'timer/signup.html', context}
 
 # Create your views here.

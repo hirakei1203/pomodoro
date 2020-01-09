@@ -19,4 +19,5 @@ from django.urls import include, path
 urlpatterns = [
     path('timer/', include("timer.urls")),
     path('admin/', admin.site.urls),
+    path('signup/', view.signup, name='signup'),
 ]
