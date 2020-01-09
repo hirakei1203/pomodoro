@@ -7,18 +7,19 @@ def index(request):
     return render(request, "timer/index.html")
 
 def signup(request):
-  if request.mtehod == 'POST':
-    form = UserCreationForm(request.POST)
-    if form.is_valid():
-      user_instacnce =  form.save()
-      login(request, user_instance)
-      return redirect('timer:index')
-    else:
+  if request.method == 'POST':
+      form = UserCreationForm(request.POST)
+      if form.is_valid():
+          user_instance =  form.save()
+          login(request, user_instance)
+          return redirect('timer:index')
+  else:
       form = UserCreationForm()
 
-    context = {
-      "form": form
-    }
-    return render{request, 'timer/signup.html', context}
-
+  context = {
+    "form": form
+  }
+  return render(request, 'timer/signup.html', context)
+      
+      
 # Create your views here.
