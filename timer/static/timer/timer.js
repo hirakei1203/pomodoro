@@ -2,5 +2,8 @@ $(function(){
 
 $(".dropdown-trigger").dropdown();
 
+
+
+
 })
 
