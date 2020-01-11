@@ -358,8 +358,10 @@ template {
 
 .main-timer-display{
 	display:flex;
-	color:red;
 	font-size: 28px;
 	float: left;
 }
 
+.acdn-content{
+	display: none;
+}

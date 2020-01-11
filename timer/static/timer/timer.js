@@ -1,9 +1,17 @@
 $(function(){
 
-  // ドロップダウンを作る場合、以下コードとmaterializeを活用する
-  $(".dropdown-trigger").dropdown();
 
-  console.log("aaa");
+  $( '#acdn-button' ).click( function(){
+    $( '#acdn-target' ).slideToggle() ;
+  } ) ;
+
+  let countdown = function(){
+    
+
+  }
+
+  setInterval(countdown, 1000);
+
 
   $(".task_min").on("keyup", function(){
     let task_setting_min = $(this).val();
