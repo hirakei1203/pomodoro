@@ -7,8 +7,12 @@ $(function(){
 
   $(".task_min").on("keyup", function(){
     let task_setting_min = $(this).val();
-    console.log(task_setting_min);
     $(".timeleft_min").html(task_setting_min);
+  })
+
+  $(".task_second").on("keyup", function(){
+    let task_setting_second = $(this).val();
+    $(".timeleft_second").html(task_setting_second);
   })
 
 })
