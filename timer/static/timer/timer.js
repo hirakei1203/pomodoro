@@ -6,8 +6,10 @@ $(function(){
   } ) ;
 
   let countdown = function(){
+    let task_remaining_second = $(".timeleft_second").html();
+    task_remaining_second_next = task_remaining_second - 1;
     
-
+    $(".timeleft_second").html(task_remaining_second_next);
   }
 
   setInterval(countdown, 1000);
