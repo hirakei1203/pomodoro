@@ -5,6 +5,7 @@ $(function(){
   // アコーディオン関数
   $( '#acdn-button' ).click( function(){
     $( '#acdn-target' ).slideToggle() ;
+    $("i", this).toggleClass("display-none");
   } ) ;
 
   // "分"が切り替わった際に"秒"に59を入力する関数
