@@ -1,14 +1,18 @@
 $(function(){
 
 
+  // 各関数の定義
+  // アコーディオン関数
   $( '#acdn-button' ).click( function(){
     $( '#acdn-target' ).slideToggle() ;
   } ) ;
 
+  // "分"が切り替わった際に"秒"に59を入力する関数
   let set59 = function() {
     $(".timeleft_second").html(59);
   }
 
+  // カウントダウン機能を定義する
   let countdown = function(){
     let task_remaining_min = $(".timeleft_min").html();
     let task_remaining_second = $(".timeleft_second").html();
@@ -24,9 +28,13 @@ $(function(){
     }
   }
 
+
+  // 毎秒カウントダウンを行う
   setInterval(countdown, 1000);
 
 
+
+  // inputタグに入力した数値を、メインタイマーに入力する
   $(".task_min").on("keyup", function(){
     let task_setting_min = $(this).val();
     $(".timeleft_min").html(task_setting_min);
