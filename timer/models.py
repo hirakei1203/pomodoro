@@ -39,4 +39,7 @@ class User(AbstractUser):
 
 # Create your models here.
 
+class Setlist(models.Model):
+    
+
 
