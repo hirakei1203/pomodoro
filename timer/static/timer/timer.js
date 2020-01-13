@@ -1,7 +1,9 @@
 $(function(){
 
+  let status = 0; 
+  // 停止中=0, 稼働中=1
 
-  // 各関数の定義
+  // 各関数の定義---------------------------------------
   // アコーディオン関数
   $( '#acdn-button' ).click( function(){
     $( '#acdn-target' ).slideToggle() ;
@@ -28,12 +30,14 @@ $(function(){
       $(".timeleft_second").html(task_remaining_second_next);
     }
   }
+  // --------------------------------------------------
 
-
+  $("#startBTN").click(function(){
   // 毎秒カウントダウンを行う
+  status = 1;
+  $("#startBTN").prop("disabled", true);
   setInterval(countdown, 1000);
-
-
+    })
 
   // inputタグに入力した数値を、メインタイマーに入力する
   $(".task_min").on("keyup", function(){
