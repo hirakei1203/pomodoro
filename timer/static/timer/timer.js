@@ -1,5 +1,6 @@
 $(function(){
 
+  let timerID, timerID2;
   let status = 0; 
   // 停止中=0, 稼働中=1
 
@@ -38,11 +39,12 @@ $(function(){
   // 毎秒カウントダウンを行う
   status = 1;
   $("#startBTN").prop("disabled", true);
-  setInterval(countdown, 1000);
+  timerID = setInterval(countdown, 1000);
   })
 
   $("#pauseBTN").click(function(){
-  status = 0;
+  status = 0; 
+  timerID2 = clearInterval(timerID);
   $("#startBTN").prop("disabled", false);
   })
 
@@ -62,12 +64,13 @@ document.onkeydown = function(event) {
   if (event) {
       if (event.keyCode == 32 || event.which == 32) {
           if(status == 1) {
-            status = 0;
+            status = 0; 
+            timerID2 = clearInterval(timerID);
             $("#startBTN").prop("disabled", false);
           } else if (status == 0) {
             status = 1;
             $("#startBTN").prop("disabled", true);
-            setInterval(countdown, 1000);
+            timerID = setInterval(countdown, 1000);
           }
       }
   }
