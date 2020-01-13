@@ -40,6 +40,6 @@ class User(AbstractUser):
 # Create your models here.
 
 class Setlist(models.Model):
-    
+    worktime = models.IntegerField(null=False)
 
 
