@@ -48,6 +48,10 @@ $(function(){
   $("#startBTN").prop("disabled", false);
   })
 
+  $("#skipBTN").click(function({
+  // 二週目のアイドリング状態に戻る記述
+  })
+
   // inputタグに入力した数値を、メインタイマーに入力する
   $(".task_min").on("keyup", function(){
     let task_setting_min = $(this).val();
