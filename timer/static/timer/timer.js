@@ -17,17 +17,19 @@ $(function(){
 
   // カウントダウン機能を定義する
   let countdown = function(){
-    let task_remaining_min = $(".timeleft_min").html();
-    let task_remaining_second = $(".timeleft_second").html();
-    task_remaining_second_next = task_remaining_second - 1;
-    if (task_remaining_second_next == 0){
-      task_remaining_min_next = task_remaining_min - 1;
-      $(".timeleft_min").html(task_remaining_min_next);
-      $(".timeleft_second").html(00);
-      setTimeout(set59, 1000);
-    }
-    else {
-      $(".timeleft_second").html(task_remaining_second_next);
+    if (status == 1){
+      let task_remaining_min = $(".timeleft_min").html();
+      let task_remaining_second = $(".timeleft_second").html();
+      task_remaining_second_next = task_remaining_second - 1;
+      if (task_remaining_second_next == 0){
+        task_remaining_min_next = task_remaining_min - 1;
+        $(".timeleft_min").html(task_remaining_min_next);
+        $(".timeleft_second").html(00);
+        setTimeout(set59, 1000);
+      }
+      else {
+        $(".timeleft_second").html(task_remaining_second_next);
+      }
     }
   }
   // --------------------------------------------------
@@ -37,7 +39,12 @@ $(function(){
   status = 1;
   $("#startBTN").prop("disabled", true);
   setInterval(countdown, 1000);
-    })
+  })
+
+  $("#pauseBTN").click(function(){
+  status = 0;
+  $("#startBTN").prop("disabled", false);
+  })
 
   // inputタグに入力した数値を、メインタイマーに入力する
   $(".task_min").on("keyup", function(){
@@ -50,5 +57,20 @@ $(function(){
     $(".timeleft_second").html(task_setting_second);
   })
 
+// スペースキーで操作できるように！
+document.onkeydown = function(event) { 
+  if (event) {
+      if (event.keyCode == 32 || event.which == 32) {
+          if(status == 1) {
+            status = 0;
+            $("#startBTN").prop("disabled", false);
+          } else if (status == 0) {
+            status = 1;
+            $("#startBTN").prop("disabled", true);
+            setInterval(countdown, 1000);
+          }
+      }
+  }
+};
 })
 
