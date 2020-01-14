@@ -40,6 +40,11 @@ class User(AbstractUser):
 # Create your models here.
 
 class Setlist(models.Model):
-    worktime = models.IntegerField(null=False)
+    workTime = models.IntegerField(null=False)
+    restTime = models.IntegerField
+    cycleNumber = models.IntegerField
+    longRestTime= models.IntegerField
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
 
 
