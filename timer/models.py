@@ -46,5 +46,8 @@ class Setlist(models.Model):
     longRestTime= models.IntegerField
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+class Record(models.Model):
+    
+
 
 
