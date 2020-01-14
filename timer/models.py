@@ -47,7 +47,17 @@ class Setlist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Record(models.Model):
-    
+    date = models.DateTimeField(blank = True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    setlist = models.ForeignKey(Setlist, on_delete=models.CASCADE)
+
+    # viewにxdayのrecordを渡すためのメソッドの記述
+    # @classmethod
+    # def getXdayRecord(cls):
+    #     xdayRecord = cls.objects.filter(\
+    #         xday = date.xxx()
+    #         )
+    #     return xdayRecord
 
 
 
