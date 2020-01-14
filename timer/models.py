@@ -40,10 +40,12 @@ class User(AbstractUser):
 # Create your models here.
 
 class Setlist(models.Model):
+    STATUS = Choices('using', 'notUsing')
     workTime = models.IntegerField(null=False)
-    restTime = models.IntegerField
-    cycleNumber = models.IntegerField
-    longRestTime= models.IntegerField
+    restTime = models.IntegerField(null=False)
+    cycleNumber = models.IntegerField(null=False)
+    longRestTime= models.IntegerField(null=False)
+    status = StatusField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Record(models.Model):
