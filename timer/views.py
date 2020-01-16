@@ -25,3 +25,6 @@ def signup(request):
       
       
 # Create your views here.
+
+class TimerListView(LoginRequiredMixin, ListView)
+  model = Timer
