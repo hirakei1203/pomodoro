@@ -4,6 +4,6 @@ from . import views
 
 urlpatterns = [
     # path('', views.index, name='index'),
-    path('', views.)
+    path('', views.TimerListView)
     path('signup/', views.signup, name='signup'),
 ]
