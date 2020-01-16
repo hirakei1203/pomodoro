@@ -28,3 +28,5 @@ def signup(request):
 
 class TimerListView(LoginRequiredMixin, ListView)
   model = Timer
+  template_name = "timer/user_timer.html"
+
