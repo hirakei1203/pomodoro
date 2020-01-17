@@ -12,8 +12,9 @@ $(function(){
   } ) ;
 
   // "分"が切り替わった際に"秒"に59を入力する関数
-  let set59 = function() {
+  let nextmin = function() {
     $(".timeleft_second").html(59);
+    $(".timeleft_min").html(task_remaining_min_next);
   }
 
   // カウントダウン機能を定義する
@@ -22,11 +23,13 @@ $(function(){
       let task_remaining_min = $(".timeleft_min").html();
       let task_remaining_second = $(".timeleft_second").html();
       task_remaining_second_next = task_remaining_second - 1;
-      if (task_remaining_second_next == 0){
-        task_remaining_min_next = task_remaining_min - 1;
-        $(".timeleft_min").html(task_remaining_min_next);
+      task_remaining_min_next = task_remaining_min - 1;
+      if (task_remaining_second == 0){
+        nextmin();
+      }
+      else if (task_remaining_second_next == 0){        
         $(".timeleft_second").html(00);
-        setTimeout(set59, 1000);
+        setTimeout(nextmin, 1000);
       }
       else {
         $(".timeleft_second").html(task_remaining_second_next);
@@ -48,9 +51,9 @@ $(function(){
   $("#startBTN").prop("disabled", false);
   })
 
-  $("#skipBTN").click(function({
+  // $("#skipBTN").click(function({
   // 二週目のアイドリング状態に戻る記述
-  })
+  // })
 
   // inputタグに入力した数値を、メインタイマーに入力する
   $(".task_min").on("keyup", function(){
