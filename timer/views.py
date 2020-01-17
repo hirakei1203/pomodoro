@@ -1,9 +1,11 @@
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, DetailView
 from .forms import CustomUserCreationForm
-
+from .models import Setlist
 
 def index(request):
     return render(request, "timer/index.html")
@@ -26,7 +28,7 @@ def signup(request):
       
 # Create your views here.
 
-class TimerListView(LoginRequiredMixin, ListView)
-  model = Timer
+class SetlistDetailView(LoginRequiredMixin, DetailView):
+  model = Setlist
   template_name = "timer/user_timer.html"
 
