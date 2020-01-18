@@ -86,6 +86,10 @@ document.onkeydown = function(event) {
             timerID = setInterval(countdown, 1000);
           }
       }
+      if(event.keyCode == 40 || event.which == 40){
+        $( '#acdn-target' ).slideToggle() ;
+        $("i", this).toggleClass("display-none");
+      }
   }
 };
 })
