@@ -2,7 +2,7 @@ $(function(){
 
   let timerID, timerID2;
   let status = 0; 
-  // 停止中=0, 稼働中=1
+  // 停止中=0, 稼働中=1, 休憩中=2, 長休憩中=3
 
   // 各関数の定義---------------------------------------
   // アコーディオン関数
@@ -24,7 +24,13 @@ $(function(){
       let task_remaining_second = $(".timeleft_second").html();
       task_remaining_second_next = task_remaining_second - 1;
       task_remaining_min_next = task_remaining_min - 1;
-      if (task_remaining_second == 0){
+      if (task_remaining_min == 0 && task_remaining_second == 0){
+        $(".card_color").toggleClass("orange green");
+        $(".status-name").toggleClass("display-none");
+        // 休憩時間をセットしないと。。。！非同期通信でできるだろうか
+        // $(".timeleft_min").html(休憩時間[min]);
+      }
+      else if (task_remaining_second == 0){
         nextmin();
       }
       else if (task_remaining_second_next == 0){        
