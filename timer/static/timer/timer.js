@@ -2,6 +2,7 @@ $(function(){
 
   let timerID, timerID2;
   let status = 0; 
+  let cycletime = 0;
   // 停止中=0, 稼働中=1, 休憩中=2, 長休憩中=3
 
   // 各関数の定義---------------------------------------
@@ -29,6 +30,7 @@ $(function(){
         $(".status-name").toggleClass("display-none");
         // 休憩時間をセットしないと。。。！非同期通信でできるだろうか
         // $(".timeleft_min").html(休憩時間[min]);
+        cycletime += 1;
       }
       else if (task_remaining_second == 0){
         nextmin();
