@@ -43,6 +43,9 @@ $(function(){
         $(".timeleft_second").html(task_remaining_second_next);
       }
     }
+    // else if (cycletime == xxx){
+    //   DBからxxxに設定値を持ってこれるかしら？
+    // }
   }
   // --------------------------------------------------
 
