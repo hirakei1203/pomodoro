@@ -1,11 +1,12 @@
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from .forms import CustomUserCreationForm
 from .models import Setlist
+
 
 def index(request):
     return render(request, "timer/index.html")
@@ -31,4 +32,11 @@ def signup(request):
 class SetlistDetailView(LoginRequiredMixin, DetailView):
   model = Setlist
   template_name = "timer/user_timer.html"
+
+def ajax_post_add(request):
+  workTime = request.POST.get('task_min')
+  data = {
+    'workTime': post.workTime,
+  }
+  return JsonResponse(d)
 
