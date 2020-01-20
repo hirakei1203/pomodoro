@@ -6,4 +6,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('setlist/<int:pk>/', views.SetlistDetailView.as_view(), name="user_timer_page"),
     path('signup/', views.signup, name='signup'),
+    path('send_Request/',views.send_request,name='send_request'),
 ]
