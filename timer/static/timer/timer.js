@@ -100,22 +100,23 @@ document.onkeydown = function(event) {
 
 
 // ajax練習
-function XMLHttpRequestInGet(){
-  //------------ using jQuery---------------//
-  $.ajax('/send_Request', {
-    data: {
-        id: 'some-unique-id'
-    }
-  })
-  .then(
-      function success(name) {
-          alert(name+' is done!');
-      },
-
-      function fail(data, status) {
-          alert('Request failed.  Returned status of ' + status);
+  function AjaxTest(){
+    //------------ using jQuery---------------//
+    $.ajax('/send_Request', {
+      data: {
+          id: 'some-unique-id'
       }
-  );
+    })
+    .then(
+        function success(name) {
+            alert(name+' is done!');
+        },
 
+        function fail(data, status) {
+            alert('Request failed.  Returned status of ' + status);
+        }
+    );
+
+  }
 })
 
