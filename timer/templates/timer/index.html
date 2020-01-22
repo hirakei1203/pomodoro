@@ -16,10 +16,12 @@
       </div>
       
       <!-- 後ほどform化！ -->
+      <form name="time_form" action="/timer/ajax/" method="POST">
+        {% csrf_token %}
       <p id="acdn-button" class="acdn-button">time setting<i class="material-icons">keyboard_arrow_down</i><i class="material-icons key-icon display-none">keyboard_arrow_up</i></p>
       <div id="acdn-target" class="acdn-content">
         <p>タスク時間</p>
-        <input type="text" class="task_min">min
+        <input type="text" class="task_min" name="task_min">min
         <input type="text" class="task_second">seconds
         
         <p>休憩時間</p>
@@ -30,6 +32,11 @@
           <a href="#">SET</a>
         </div>
       </div>
+      <input class="btn" type="submit">
+      </form>
+      <span id="id_div_ajax_response">
+        AJAX RESPONSE
+      </span>
 
       <ul>
         <li><button id="startBTN"><i class="material-icons key-icon">play_arrow</i></button>
@@ -37,8 +44,7 @@
         <li><button id="skipBTN"><i class="material-icons key-icon">fast_forward</i></button></li>
       </ul>
       <!-- ajax練習 -->
-      <button type='submit'onclick='AjaxTest()'>Submit In Get</button>
-    </div>
+      </div>
   </div>
 </div>
 

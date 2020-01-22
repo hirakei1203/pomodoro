@@ -33,16 +33,10 @@ class SetlistDetailView(LoginRequiredMixin, DetailView):
   model = Setlist
   template_name = "timer/user_timer.html"
 
-# サイトA
-def ajax_post_add(request):
-  workTime = request.POST.get('task_min')
-  data = {
-    'workTime': post.workTime,
-  }
-  return JsonResponse(d)
+def test_ajax_response(request):
+  input_text = request.POST.getlist("task_min")
+  print(input_text)
+  hoge = input_text[0]
 
-# サイトB
-def send_request(request):
-    print('****************')
-    print('ajax is done')
-    return HttpResponse("ajax is done!")
+  return HttpResponse(hoge)
+

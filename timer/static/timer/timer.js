@@ -77,6 +77,26 @@ $(function(){
     $(".timeleft_second").html(task_setting_second);
   })
 
+
+// ajax
+$("form").submit(function(event){
+  event.preventDefault();
+  var form = $(this);
+  $.ajax({
+    url: form.prop("action"),
+    method: form.prop("method"),
+    data: form.serialize(),
+    timeout: 10000,
+    dataType: "text",
+  })
+  .done(function(data){
+    alert("done");
+    $("#id_div_ajax_response").text(data);
+  })
+})
+
+
+
 // スペースキーで操作できるように！
 document.onkeydown = function(event) { 
   if (event) {
@@ -99,24 +119,6 @@ document.onkeydown = function(event) {
 };
 
 
-// ajax練習
-  function AjaxTest(){
-    //------------ using jQuery---------------//
-    $.ajax('/send_Request', {
-      data: {
-          id: 'some-unique-id'
-      }
-    })
-    .then(
-        function success(name) {
-            alert(name+' is done!');
-        },
 
-        function fail(data, status) {
-            alert('Request failed.  Returned status of ' + status);
-        }
-    );
-
-  }
 })
 
