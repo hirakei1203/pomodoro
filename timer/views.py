@@ -35,8 +35,10 @@ class SetlistDetailView(LoginRequiredMixin, DetailView):
 
 def test_ajax_response(request):
   input_text = request.POST.getlist("task_min")
-  print(input_text)
   hoge = input_text[0]
+  new_value = Setlist(workTime="122")
+  new_value.save()
+  
 
   return HttpResponse(hoge)
 
