@@ -95,9 +95,6 @@ $("form").submit(function(event){
 })
 
 
-
-
-
 // スペースキーで操作できるように！
 document.onkeydown = function(event) { 
   if (event) {
