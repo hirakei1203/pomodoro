@@ -34,11 +34,13 @@ class SetlistDetailView(LoginRequiredMixin, DetailView):
   template_name = "timer/user_timer.html"
 
 def test_ajax_response(request):
-  input_text = request.POST.getlist("task_min")
-  hoge = input_text[0]
-  new_value = Setlist(workTime="122")
+  input_text = request.POST.getlist("ajax_box")
+  print(input_text)
+  task_min = int(input_text[0])
+  break_min = input_text[2]
+  new_value = Setlist(workTime= task_min, restTime= break_min, cycleNumber= 4, longRestTime= 15, status= 1, user_id= 1)
   new_value.save()
   
 
-  return HttpResponse(hoge)
+  return HttpResponse(new_value)
 
