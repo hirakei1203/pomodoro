@@ -28,8 +28,7 @@ $(function(){
       if (task_remaining_min == 0 && task_remaining_second == 0){
         $(".card_color").toggleClass("orange green");
         $(".status-name").toggleClass("display-none");
-        // 休憩時間をセットしないと。。。！非同期通信でできるだろうか
-        // $(".timeleft_min").html(休憩時間[min]);
+        $(".ajax_starter").trigger('click');
         cycletime += 1;
       }
       else if (task_remaining_second == 0){
@@ -94,6 +93,8 @@ $("form").submit(function(event){
     $("#id_div_ajax_response").text(data);
   })
 })
+
+
 
 
 
