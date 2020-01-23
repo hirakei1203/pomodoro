@@ -16,25 +16,26 @@
       </div>
       
       <!-- 後ほどform化！ -->
-      <form name="time_form" action="/timer/ajax/" method="POST">
-        {% csrf_token %}
+      
       <p id="acdn-button" class="acdn-button">time setting<i class="material-icons">keyboard_arrow_down</i><i class="material-icons key-icon display-none">keyboard_arrow_up</i></p>
       <div id="acdn-target" class="acdn-content">
+        <form name="time_form" action="/timer/ajax/" method="POST">
+          {% csrf_token %}
         <p>タスク時間</p>
-        <input type="text" class="task_min" name="ajax_box">min
-        <input type="text" class="task_second" name="ajax_box">seconds
+        <input type="text" class="task_min time_box" name="ajax_box">min
+        <input type="text" class="task_second time_box" name="ajax_box">seconds
         
         <p>休憩時間</p>
-        <input type="text" class="break_min" name="ajax_box">min
-        <input type="text" class="break_second" name="ajax_box">seconds
+        <input type="text" class="break_min time_box" name="ajax_box">min
+        <input type="text" class="break_second time_box" name="ajax_box">seconds
 
         <div class="card-action">
           <a href="#">SET</a>
         </div>
-      </div>
-      <input class="btn ajax_starter" type="submit">
+        <input class="btn ajax_starter" type="submit">
       </form>
-      
+      </div>
+     
       <ul>
         <li><button id="startBTN"><i class="material-icons key-icon">play_arrow</i></button>
         <li><button id="pauseBTN"><i class="material-icons key-icon">pause</i></button></li>

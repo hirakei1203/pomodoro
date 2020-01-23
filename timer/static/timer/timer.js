@@ -25,6 +25,7 @@ $(function(){
       let task_remaining_second = $(".timeleft_second").html();
       task_remaining_second_next = task_remaining_second - 1;
       task_remaining_min_next = task_remaining_min - 1;
+      $(".time_box").prop("disabled", true);
       if (task_remaining_min == 0 && task_remaining_second == 0){
         $(".card_color").toggleClass("orange green");
         $(".status-name").toggleClass("display-none");
@@ -59,6 +60,7 @@ $(function(){
   status = 0; 
   timerID2 = clearInterval(timerID);
   $("#startBTN").prop("disabled", false);
+  $(".time_box").prop("disabled", false);
   })
 
   // $("#skipBTN").click(function({
@@ -103,6 +105,7 @@ document.onkeydown = function(event) {
             status = 0; 
             timerID2 = clearInterval(timerID);
             $("#startBTN").prop("disabled", false);
+            $(".time_box").prop("disabled", false);
           } else if (status == 0) {
             status = 1;
             $("#startBTN").prop("disabled", true);
