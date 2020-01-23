@@ -18,6 +18,23 @@ $(function(){
     $(".timeleft_min").html(task_remaining_min_next);
   }
 
+
+  let start_timer = function(){
+    status = 1;
+    $("#startBTN").prop("disabled", true);
+    current_task_min = $(".timeleft_min").html();
+    current_rest_min = $(".timeleft_rest_min").html();
+    timerID = setInterval(countdown, 1000);
+  }
+
+  let pause_timer = function(){
+    status = 0; 
+    timerID2 = clearInterval(timerID);
+    $("#startBTN").prop("disabled", false);
+    $(".time_box").prop("disabled", false);
+  }
+
+
   // カウントダウン機能を定義する
   let countdown = function(){
     if (status == 1){
@@ -26,11 +43,15 @@ $(function(){
       task_remaining_second_next = task_remaining_second - 1;
       task_remaining_min_next = task_remaining_min - 1;
       $(".time_box").prop("disabled", true);
-      if (task_remaining_min == 0 && task_remaining_second == 0){
+      if (task_remaining_min == 0 && task_remaining_second == 1){
+        $(".timeleft_min").html(current_rest_min);
+        $(".timeleft_second").html(00);
         $(".card_color").toggleClass("orange green");
         $(".status-name").toggleClass("display-none");
         $(".ajax_starter").trigger('click');
+        status = 2;
         cycletime += 1;
+     
       }
       else if (task_remaining_second == 0){
         nextmin();
@@ -43,24 +64,45 @@ $(function(){
         $(".timeleft_second").html(task_remaining_second_next);
       }
     }
+    else if (status == 2){
+      let task_remaining_min = $(".timeleft_min").html();
+      let task_remaining_second = $(".timeleft_second").html();
+      task_remaining_second_next = task_remaining_second - 1;
+      task_remaining_min_next = task_remaining_min - 1;
+      if (task_remaining_min == 0 && task_remaining_second == 1){
+        $(".card_color").toggleClass("orange green");
+        $(".status-name").toggleClass("display-none");
+        $(".ajax_starter").trigger('click');
+        status = 1;
+        cycletime += 1;
+      }
+      else if (task_remaining_second == 0){
+        nextmin();
+      }
+      else if (task_remaining_second_next == 0){        
+        $(".timeleft_second").html(00);
+        setTimeout(nextmin, 1000);
+      }
+      else {
+        $(".timeleft_second").html(task_remaining_second_next);
+      }
+
+
+
+    }
     // else if (cycletime == xxx){
     //   DBからxxxに設定値を持ってこれるかしら？
     // }
   }
-  // --------------------------------------------------
+  // ここまで関数定義--------------------------------------------------
 
   $("#startBTN").click(function(){
   // 毎秒カウントダウンを行う
-  status = 1;
-  $("#startBTN").prop("disabled", true);
-  timerID = setInterval(countdown, 1000);
+    start_timer();
   })
 
   $("#pauseBTN").click(function(){
-  status = 0; 
-  timerID2 = clearInterval(timerID);
-  $("#startBTN").prop("disabled", false);
-  $(".time_box").prop("disabled", false);
+    pause_timer();
   })
 
   // $("#skipBTN").click(function({
@@ -68,6 +110,7 @@ $(function(){
   // })
 
   // inputタグに入力した数値を、メインタイマーに入力する
+  if (status == 0){
   $(".task_min").on("keyup", function(){
     let task_setting_min = $(this).val();
     $(".timeleft_min").html(task_setting_min);
@@ -77,7 +120,12 @@ $(function(){
     let task_setting_second = $(this).val();
     $(".timeleft_second").html(task_setting_second);
   })
+  }
 
+  $(".break_min").on("keyup", function(){
+    let rest_setting_second = $(this).val();
+    $(".timeleft_rest_second").html(rest_setting_second);
+  })
 
 // ajax
 $("form").submit(function(event){
@@ -102,14 +150,9 @@ document.onkeydown = function(event) {
   if (event) {
       if (event.keyCode == 32 || event.which == 32) {
           if(status == 1) {
-            status = 0; 
-            timerID2 = clearInterval(timerID);
-            $("#startBTN").prop("disabled", false);
-            $(".time_box").prop("disabled", false);
+            pause_timer();
           } else if (status == 0) {
-            status = 1;
-            $("#startBTN").prop("disabled", true);
-            timerID = setInterval(countdown, 1000);
+            start_timer();
           }
       }
       if(event.keyCode == 40 || event.which == 40){
