@@ -24,6 +24,7 @@ $(function(){
     $("#startBTN").prop("disabled", true);
     current_task_min = $(".timeleft_min").html();
     current_rest_min = $(".timeleft_rest_min").html();
+    console.log(current_rest_min);
     timerID = setInterval(countdown, 1000);
   }
 
@@ -51,7 +52,6 @@ $(function(){
         $(".ajax_starter").trigger('click');
         status = 2;
         cycletime += 1;
-     
       }
       else if (task_remaining_second == 0){
         nextmin();
@@ -70,6 +70,8 @@ $(function(){
       task_remaining_second_next = task_remaining_second - 1;
       task_remaining_min_next = task_remaining_min - 1;
       if (task_remaining_min == 0 && task_remaining_second == 1){
+        $(".timeleft_min").html(current_task_min);
+        $(".timeleft_second").html(00);
         $(".card_color").toggleClass("orange green");
         $(".status-name").toggleClass("display-none");
         $(".ajax_starter").trigger('click');
@@ -78,7 +80,7 @@ $(function(){
       }
       else if (task_remaining_second == 0){
         nextmin();
-      }
+       }
       else if (task_remaining_second_next == 0){        
         $(".timeleft_second").html(00);
         setTimeout(nextmin, 1000);
@@ -110,6 +112,8 @@ $(function(){
   // })
 
   // inputタグに入力した数値を、メインタイマーに入力する
+  // 休憩時間の時に休憩時間を入力できないエラー
+  let input_field = function(){
   if (status == 0){
   $(".task_min").on("keyup", function(){
     let task_setting_min = $(this).val();
@@ -120,11 +124,19 @@ $(function(){
     let task_setting_second = $(this).val();
     $(".timeleft_second").html(task_setting_second);
   })
+  } else if (status == 2) {
+  $(".break_second").on("keyup", function(){
+    let rest_setting_second = $(this).val();
+    $(".timeleft_second").html(rest_setting_second);
+  })
   }
+  }
+ 
+
 
   $(".break_min").on("keyup", function(){
     let rest_setting_second = $(this).val();
-    $(".timeleft_rest_second").html(rest_setting_second);
+    $(".timeleft_rest_min").html(rest_setting_second);
   })
 
 // ajax
@@ -139,11 +151,11 @@ $("form").submit(function(event){
     dataType: "text",
   })
   .done(function(data){
-    alert("done");
     $("#id_div_ajax_response").text(data);
   })
 })
 
+input_field();
 
 // スペースキーで操作できるように！
 document.onkeydown = function(event) { 
