@@ -3,7 +3,10 @@ $(function(){
   let timerID, timerID2;
   let status = 0; 
   let cycletime = 0;
-  // 停止中=0, 稼働中=1, 休憩中=2, 長休憩中=3
+  // 停止中=0, 稼働中=1
+  let task_status = 0;
+  // タスク中=0, 休憩中=1, 長休憩中=2
+
 
   // 各関数の定義---------------------------------------
   // アコーディオン関数
@@ -35,52 +38,37 @@ $(function(){
     $(".time_box").prop("disabled", false);
   }
 
-
   // カウントダウン機能を定義する
   let countdown = function(){
-    if (status == 1){
       let task_remaining_min = $(".timeleft_min").html();
       let task_remaining_second = $(".timeleft_second").html();
       task_remaining_second_next = task_remaining_second - 1;
       task_remaining_min_next = task_remaining_min - 1;
+      console.log(status);
       $(".time_box").prop("disabled", true);
-      if (task_remaining_min == 0 && task_remaining_second == 1){
+      if (task_remaining_min == 0 && task_remaining_second == 1 && task_status == 0){
         $(".timeleft_min").html(current_rest_min);
         $(".timeleft_second").html(00);
         $(".card_color").toggleClass("orange green");
         $(".status-name").toggleClass("display-none");
         $(".ajax_starter").trigger('click');
-        status = 2;
+        task_status = 1;
         cycletime += 1;
+        pause_timer();
+        console.log(status);
       }
-      else if (task_remaining_second == 0){
-        nextmin();
-      }
-      else if (task_remaining_second_next == 0){        
-        $(".timeleft_second").html(00);
-        setTimeout(nextmin, 1000);
-      }
-      else {
-        $(".timeleft_second").html(task_remaining_second_next);
-      }
-    }
-    else if (status == 2){
-      let task_remaining_min = $(".timeleft_min").html();
-      let task_remaining_second = $(".timeleft_second").html();
-      task_remaining_second_next = task_remaining_second - 1;
-      task_remaining_min_next = task_remaining_min - 1;
-      if (task_remaining_min == 0 && task_remaining_second == 1){
+      else if (task_remaining_min == 0 && task_remaining_second == 1 && task_status == 1){
         $(".timeleft_min").html(current_task_min);
         $(".timeleft_second").html(00);
         $(".card_color").toggleClass("orange green");
         $(".status-name").toggleClass("display-none");
-        $(".ajax_starter").trigger('click');
-        status = 0;
+        task_status = 0;
         cycletime += 1;
+        pause_timer();
       }
       else if (task_remaining_second == 0){
         nextmin();
-       }
+      }
       else if (task_remaining_second_next == 0){        
         $(".timeleft_second").html(00);
         setTimeout(nextmin, 1000);
@@ -88,14 +76,12 @@ $(function(){
       else {
         $(".timeleft_second").html(task_remaining_second_next);
       }
-
-
 
     }
     // else if (cycletime == xxx){
     //   DBからxxxに設定値を持ってこれるかしら？
     // }
-  }
+
   // ここまで関数定義--------------------------------------------------
 
   $("#startBTN").click(function(){
