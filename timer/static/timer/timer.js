@@ -44,7 +44,6 @@ $(function(){
       let task_remaining_second = $(".timeleft_second").html();
       task_remaining_second_next = task_remaining_second - 1;
       task_remaining_min_next = task_remaining_min - 1;
-      console.log(status);
       $(".time_box").prop("disabled", true);
       if (task_remaining_min == 0 && task_remaining_second == 1 && task_status == 0){
         $(".timeleft_min").html(current_rest_min);
