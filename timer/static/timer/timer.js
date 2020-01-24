@@ -75,7 +75,7 @@ $(function(){
         $(".card_color").toggleClass("orange green");
         $(".status-name").toggleClass("display-none");
         $(".ajax_starter").trigger('click');
-        status = 1;
+        status = 0;
         cycletime += 1;
       }
       else if (task_remaining_second == 0){
