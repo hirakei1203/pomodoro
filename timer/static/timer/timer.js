@@ -54,8 +54,6 @@ $(function(){
         $(".ajax_starter").trigger('click');
         task_status = 1;
         cycletime += 1;
-        pause_timer();
-        console.log(status);
       }
       else if (task_remaining_min == 0 && task_remaining_second == 1 && task_status == 1){
         $(".timeleft_min").html(current_task_min);
