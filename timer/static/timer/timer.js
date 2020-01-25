@@ -45,6 +45,7 @@ $(function(){
       task_remaining_second_next = task_remaining_second - 1;
       task_remaining_min_next = task_remaining_min - 1;
       $(".time_box").prop("disabled", true);
+      console.log(task_status);
       if (task_remaining_min == 0 && task_remaining_second == 1 && task_status == 0){
         $(".timeleft_min").html(current_rest_min);
         $(".timeleft_second").html(00);
@@ -75,6 +76,22 @@ $(function(){
       }
 
     }
+
+    // inputタグに入力した数値を、メインタイマーに入力する
+    let input_field = function(){
+      if (task_status == 0){
+        let task_setting_min = $(".task_min").val();
+        let task_setting_second = $(".task_second").val();
+        $(".timeleft_min").html(task_setting_min);
+        $(".timeleft_second").html(task_setting_second);
+      } 
+      else if (task_status == 1) {
+        let rest_setting_min = $(".break_min").val();
+        let rest_setting_second = $(".break_second").val();
+        $(".timeleft_min").html(rest_setting_min);
+        $(".timeleft_second").html(rest_setting_second);
+      }
+    }
     // else if (cycletime == xxx){
     //   DBからxxxに設定値を持ってこれるかしら？
     // }
@@ -94,33 +111,6 @@ $(function(){
   // 二週目のアイドリング状態に戻る記述
   // })
 
-  // inputタグに入力した数値を、メインタイマーに入力する
-  // 休憩時間の時に休憩時間を入力できないエラー
-  let input_field = function(){
-  if (status == 0){
-  $(".task_min").on("keyup", function(){
-    let task_setting_min = $(this).val();
-    $(".timeleft_min").html(task_setting_min);
-  })
-
-  $(".task_second").on("keyup", function(){
-    let task_setting_second = $(this).val();
-    $(".timeleft_second").html(task_setting_second);
-  })
-  } else if (status == 2) {
-  $(".break_second").on("keyup", function(){
-    let rest_setting_second = $(this).val();
-    $(".timeleft_second").html(rest_setting_second);
-  })
-  }
-  }
- 
-
-
-  $(".break_min").on("keyup", function(){
-    let rest_setting_second = $(this).val();
-    $(".timeleft_rest_min").html(rest_setting_second);
-  })
 
 // ajax
 $("form").submit(function(event){
@@ -138,7 +128,10 @@ $("form").submit(function(event){
   })
 })
 
-input_field();
+
+$(".time_box").on("keyup", function(){
+  input_field();
+})
 
 // スペースキーで操作できるように！
 document.onkeydown = function(event) { 
