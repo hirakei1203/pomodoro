@@ -2,8 +2,8 @@ $(function(){
 
   let timerID, timerID2;
   let status = 0; 
-  let cycletime = 0;
   // 停止中=0, 稼働中=1
+  let cycletime = 0;
   let task_status = 0;
   // タスク中=0, 休憩中=1, 長休憩中=2
 
@@ -25,9 +25,8 @@ $(function(){
   let start_timer = function(){
     status = 1;
     $("#startBTN").prop("disabled", true);
-    current_task_min = $(".timeleft_min").html();
+    current_task_min = $(".timeleft_task_min").html();
     current_rest_min = $(".timeleft_rest_min").html();
-    console.log(current_rest_min);
     timerID = setInterval(countdown, 1000);
   }
 
@@ -38,6 +37,30 @@ $(function(){
     $(".time_box").prop("disabled", false);
   }
 
+  let skip_timer = function(){
+    task_status_exchange();
+    console.log(current_task_min);
+    if (task_status == 0){        
+      task_status = 1;
+      $(".timeleft_min").html(current_rest_min);
+    }
+    else if (task_status == 1){
+      task_status = 0;
+      $(".timeleft_min").html(current_task_min);
+    }
+    if (status == 1) {  
+      pause_timer();
+    }
+    status = 0;
+  }
+
+  let task_status_exchange = function(){
+    $(".timeleft_second").html(00);
+    $(".card_color").toggleClass("orange green");
+    $(".status-name").toggleClass("display-none");
+    
+  }
+
   // カウントダウン機能を定義する
   let countdown = function(){
       let task_remaining_min = $(".timeleft_min").html();
@@ -45,21 +68,16 @@ $(function(){
       task_remaining_second_next = task_remaining_second - 1;
       task_remaining_min_next = task_remaining_min - 1;
       $(".time_box").prop("disabled", true);
-      console.log(task_status);
       if (task_remaining_min == 0 && task_remaining_second == 1 && task_status == 0){
+        task_status_exchange();
         $(".timeleft_min").html(current_rest_min);
-        $(".timeleft_second").html(00);
-        $(".card_color").toggleClass("orange green");
-        $(".status-name").toggleClass("display-none");
         $(".ajax_starter").trigger('click');
         task_status = 1;
         cycletime += 1;
       }
       else if (task_remaining_min == 0 && task_remaining_second == 1 && task_status == 1){
+        task_status_exchange();
         $(".timeleft_min").html(current_task_min);
-        $(".timeleft_second").html(00);
-        $(".card_color").toggleClass("orange green");
-        $(".status-name").toggleClass("display-none");
         task_status = 0;
         cycletime += 1;
         pause_timer();
@@ -107,9 +125,9 @@ $(function(){
     pause_timer();
   })
 
-  // $("#skipBTN").click(function({
-  // 二週目のアイドリング状態に戻る記述
-  // })
+  $("#skipBTN").click(function(){
+    skip_timer();
+  })
 
 
 // ajax
