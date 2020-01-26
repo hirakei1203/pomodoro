@@ -134,6 +134,7 @@ $(function(){
 $("form").submit(function(event){
   event.preventDefault();
   var form = $(this);
+  console.log(form);
   $.ajax({
     url: form.prop("action"),
     method: form.prop("method"),
