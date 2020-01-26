@@ -36,21 +36,23 @@ class SetlistDetailView(LoginRequiredMixin, DetailView):
 def test_ajax_response(request):
   input_text = request.POST.getlist("ajax_box")
   current_user_id = request.user.id
+  task_min = input_text[0]
+  break_min = input_text[2]
+
   # user_idで最新のsetlistを持ってくる
   # （なければつくる）
   current_setlist = Setlist.objects.filter(user_id = current_user_id)
-  print (current_setlist)
+  print(current_setlist)
+  current_setlist.workTime = "{{ task_min }}" 
+  current_setlist.restTime = "{{ break_min }}"
+  current_setlist.save()
+  
   # そこにtaskminとrestminを代入する
   # saveする
   # そのsetlistuのレコードを作成する(user_idも入れる)
   # saveする
 
-  print (input_text)
-  task_min = 0
-  
-  break_min = 1
-  new_value = Setlist(workTime= task_min, restTime= break_min, cycleNumber= 4, longRestTime= 15, status= 1, user_id= 1)
   
 
-  return HttpResponse(new_value)
+  return HttpResponse(current_setlist)
 
