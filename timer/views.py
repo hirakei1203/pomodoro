@@ -35,14 +35,16 @@ class SetlistDetailView(LoginRequiredMixin, DetailView):
 
 def test_ajax_response(request):
   input_text = request.POST.getlist("ajax_box")
-  user_id = request.user.id
-  print(user_id)
-  # current_user_id = request.user_id
-  # print(current_user_id)
+  current_user_id = request.user.id
   # user_idで最新のsetlistを持ってくる
   # （なければつくる）
+  current_setlist = Setlist.objects.filter(user_id = current_user_id)
+  print (current_setlist)
   # そこにtaskminとrestminを代入する
   # saveする
+  # そのsetlistuのレコードを作成する(user_idも入れる)
+  # saveする
+
   print (input_text)
   task_min = 0
   
