@@ -37,15 +37,9 @@ def test_ajax_response(request):
   input_text = request.POST.getlist("ajax_box")
   # if input_text[0]:
   task_min = 0
-  # task_min = input_text[0]
-  # else:
-  #   task_min = 最新のtask_min
-    
-  # if input_text[2]:
-  # break_min = input_text[2]
+  
   break_min = 1
   new_value = Setlist(workTime= task_min, restTime= break_min, cycleNumber= 4, longRestTime= 15, status= 1, user_id= 1)
-  # new_value.save()
   
 
   return HttpResponse(new_value)

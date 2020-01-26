@@ -24,12 +24,12 @@
         <form name="time_form" action="/timer/ajax/" method="POST">
           {% csrf_token %}
         <p>タスク時間</p>
-        <input type="text" class="task_min time_box" name="ajax_box">min
-        <input type="text" class="task_second time_box" name="ajax_box">seconds
+        <input type="text" class="task_min time_box" name="ajax_box" value="{{ setlist.workTime }}">min
+        <input type="text" class="task_second time_box" name="ajax_box" value=00>seconds
         
         <p>休憩時間</p>
-        <input type="text" class="break_min time_box" name="ajax_box">min
-        <input type="text" class="break_second time_box" name="ajax_box">seconds
+        <input type="text" class="break_min time_box" name="ajax_box" value="{{ setlist.restTime }}">min
+        <input type="text" class="break_second time_box" name="ajax_box" value=00>seconds
 
         <div class="card-action">
           <a href="#">SET</a>
