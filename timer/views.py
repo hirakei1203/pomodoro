@@ -41,10 +41,10 @@ def test_ajax_response(request):
 
   # user_idで最新のsetlistを持ってくる
   # （なければつくる）
-  current_setlist = Setlist.objects.filter(user_id = current_user_id)
+  current_setlist = Setlist.objects.get(user_id = current_user_id)
   print(current_setlist)
-  current_setlist.workTime = "{{ task_min }}" 
-  current_setlist.restTime = "{{ break_min }}"
+  current_setlist.workTime = task_min 
+  current_setlist.restTime = break_min
   current_setlist.save()
   
   # そこにtaskminとrestminを代入する
