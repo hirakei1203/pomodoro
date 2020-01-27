@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
+from django.utils import timezone
 from .forms import CustomUserCreationForm
 from .models import Setlist, Record
 
@@ -52,7 +53,9 @@ def test_ajax_response(request):
   # そのsetlistuのレコードを作成する(user_idも入れる)
   # saveする
   current_setlist_id = current_setlist.id
-  new_record = Record(setlist_id = current_setlist_id, user_id = current_user_id)
+  today = str(timezone.now())
+  print(today)
+  new_record = Record(setlist_id = current_setlist_id, user_id = current_user_id, date = today)
   new_record.save()
   
   return HttpResponse(current_setlist)
