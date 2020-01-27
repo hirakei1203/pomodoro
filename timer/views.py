@@ -5,7 +5,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from .forms import CustomUserCreationForm
-from .models import Setlist
+from .models import Setlist, Record
 
 
 def index(request):
@@ -39,20 +39,21 @@ def test_ajax_response(request):
   task_min = input_text[0]
   break_min = input_text[2]
 
-  # user_idで最新のsetlistを持ってくる
-  # （なければつくる）
+  # Setlistモデルに対する処理
   current_setlist = Setlist.objects.get(user_id = current_user_id)
   print(current_setlist)
   current_setlist.workTime = task_min 
   current_setlist.restTime = break_min
   current_setlist.save()
   
+  # Recordモデルに対する処理
   # そこにtaskminとrestminを代入する
   # saveする
   # そのsetlistuのレコードを作成する(user_idも入れる)
   # saveする
-
+  current_setlist_id = current_setlist.id
+  new_record = Record(setlist_id = current_setlist_id, user_id = current_user_id)
+  new_record.save()
   
-
   return HttpResponse(current_setlist)
 
