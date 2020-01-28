@@ -36,7 +36,6 @@ class SetlistDetailView(LoginRequiredMixin, DetailView):
 
 def test_ajax_response(request):
   # データのセット
-  print(request.POST)
   input_text = request.POST.getlist("ajax_box")
   current_user_id = request.user.id
   task_min = input_text[0]

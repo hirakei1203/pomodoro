@@ -25,6 +25,7 @@ $(function(){
   let start_timer = function(){
     status = 1;
     $("#startBTN").prop("disabled", true);
+    $("#skipBTN").prop("disabled", false);
     current_task_min = $(".timeleft_task_min").html();
     current_rest_min = $(".timeleft_rest_min").html();
     timerID = setInterval(countdown, 1000);
@@ -39,7 +40,6 @@ $(function(){
 
   let skip_timer = function(){
     task_status_exchange();
-    console.log(current_task_min);
     if (task_status == 0){        
       task_status = 1;
       $(".timeleft_min").html(current_rest_min);
@@ -99,16 +99,24 @@ $(function(){
     // inputタグに入力した数値を、メインタイマーに入力する
     let input_field = function(){
       if (task_status == 0){
+        $(".task_min").on("keyup", function(){
         let task_setting_min = $(".task_min").val();
-        let task_setting_second = $(".task_second").val();
         $(".timeleft_min").html(task_setting_min);
+        })
+        $(".task_second").on("keyup", function(){
+        let task_setting_second = $(".task_second").val();
         $(".timeleft_second").html(task_setting_second);
-      } 
+        })
+      }
       else if (task_status == 1) {
+        $(".break_min").on("keyup", function(){
         let rest_setting_min = $(".break_min").val();
-        let rest_setting_second = $(".break_second").val();
         $(".timeleft_min").html(rest_setting_min);
+        })
+        $(".break_second").on("keyup", function(){
+        let rest_setting_second = $(".break_second").val();
         $(".timeleft_second").html(rest_setting_second);
+        })
       }
     }
     // else if (cycletime == xxx){
@@ -172,9 +180,11 @@ document.onkeydown = function(event) {
         $( '#acdn-target' ).slideToggle() ;
         $("i", this).toggleClass("display-none");
       }
-  }
-};
-
+      if(event.keyCode == 39 || event.which == 39){
+        skip_timer();
+      }
+  };
+}
 
 
 })
