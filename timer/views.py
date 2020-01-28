@@ -56,3 +56,4 @@ def test_ajax_response(request):
   
   return HttpResponse(current_setlist)
 
+

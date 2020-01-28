@@ -135,13 +135,21 @@ $(function(){
 $("form").submit(function(event){
   event.preventDefault();
   var form = $(this);
-  params = $(".ajax_box").val();
-  console.log(params);
+  // console.log(form);
+  params_task_min = $(".task_min").val();
+  params_task_second = $(".task_second").val();
+  params_break_min = $(".break_min").val();
+  params_break_second = $(".break_second").val();
+  let time_array = [params_task_min, params_task_second, params_break_min, params_break_second]
+  let original_data = form.serialize();
+  // console.log(original_data);
+  modified_data = original_data + "&ajax_box=" + params_task_min + "&ajax_box=" + params_task_second + "&ajax_box=" + params_break_min + "&ajax_box=" + params_break_second
+  console.log(modified_data);
 
   $.ajax({
     url: form.prop("action"),
     method: form.prop("method"),
-    data: form.serialize(),
+    data: modified_data,
     timeout: 10000,
     dataType: "text",
   })
