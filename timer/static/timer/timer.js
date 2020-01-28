@@ -72,6 +72,7 @@ $(function(){
         task_status_exchange();
         $(".timeleft_min").html(current_rest_min);
         $(".ajax_starter").trigger('click');
+        // $(document).on('click', ".ajax_starter");
         task_status = 1;
         cycletime += 1;
       }
@@ -134,7 +135,9 @@ $(function(){
 $("form").submit(function(event){
   event.preventDefault();
   var form = $(this);
-  console.log(form);
+  params = $(".ajax_box").val();
+  console.log(params);
+
   $.ajax({
     url: form.prop("action"),
     method: form.prop("method"),
@@ -146,7 +149,6 @@ $("form").submit(function(event){
     $("#id_div_ajax_response").text(data);
   })
 })
-
 
 $(".time_box").on("keyup", function(){
   input_field();
