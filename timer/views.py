@@ -26,6 +26,9 @@ def signup(request):
     "form": form
   }
   return render(request, 'timer/signup.html', context)
+
+def home(request):
+  return(request, "timer/user_timer.html")
       
       
 # Create your views here.
