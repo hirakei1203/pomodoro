@@ -18,7 +18,12 @@ def signup(request):
       if form.is_valid():
           user_instance =  form.save()
           login(request, user_instance)
-          return redirect('index')
+          pk = user_instance.id
+          print(pk)
+          return render(request, 'timer:user_timer_page', pk)
+
+      else:
+        print("invalid")
   else:
       form = CustomUserCreationForm()
 
@@ -27,8 +32,6 @@ def signup(request):
   }
   return render(request, 'timer/signup.html', context)
 
-def home(request):
-  return(request, "timer/user_timer.html")
       
       
 # Create your views here.
