@@ -5,6 +5,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.utils import timezone
+from django.urls import reverse_lazy
 from .forms import CustomUserCreationForm
 from .models import Setlist, Record
 
@@ -20,7 +21,8 @@ def signup(request):
           login(request, user_instance)
           pk = user_instance.id
           print(pk)
-          return render(request, 'timer:user_timer_page', pk)
+          # return render(request, 'timer:user_timer_page', pk)
+          success_url = reverse_lazy("timer:user_timer_page")
 
       else:
         print("invalid")
@@ -32,9 +34,8 @@ def signup(request):
   }
   return render(request, 'timer/signup.html', context)
 
-      
-      
 # Create your views here.
+
 
 class SetlistDetailView(LoginRequiredMixin, DetailView):
   model = Setlist
