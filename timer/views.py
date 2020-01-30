@@ -38,17 +38,17 @@ def signup(request):
 
 # Create your views here.
 
-class Login(LoginView):
+class LoginView(LoginView):
   """ログインページ"""
   form_class = LoginForm
-  template_name = 'timer/login.html'
+  # template_name = 'timer/index.html'
 
   def get_success_url(self):
     print('success')
     url = self.get_redirect_url()
     return url or resolve_url('timer:user_timer_page', pk=self.request.user.pk)
 
-class Logout(LogoutView):
+class LogoutView(LogoutView):
     """ログアウトページ"""
     template_name = 'timer/logout.html'
 
