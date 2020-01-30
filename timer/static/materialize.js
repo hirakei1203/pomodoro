@@ -11105,7 +11105,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       value: function _cycleTo(n, callback) {
         var diff = this.center % this.count - n;
 
-        // Account for wraparound.
+        //  for wraparound.
         if (!this.noWrap) {
           if (diff < 0) {
             if (Math.abs(diff + this.count) < Math.abs(diff)) {

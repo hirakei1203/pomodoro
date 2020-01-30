@@ -1,12 +1,14 @@
 from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, resolve_url
 from django.views.generic import ListView, DetailView
 from django.utils import timezone
 from django.urls import reverse_lazy
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, LoginForm
 from .models import Setlist, Record
 
 
@@ -36,6 +38,19 @@ def signup(request):
 
 # Create your views here.
 
+class Login(LoginView):
+  """ログインページ"""
+  form_class = LoginForm
+  template_name = 'timer/login.html'
+
+  def get_success_url(self):
+    print('success')
+    url = self.get_redirect_url()
+    return url or resolve_url('timer:user_timer_page', pk=self.request.user.pk)
+
+class Logout(LogoutView):
+    """ログアウトページ"""
+    template_name = 'timer/logout.html'
 
 class SetlistDetailView(LoginRequiredMixin, DetailView):
   model = Setlist
