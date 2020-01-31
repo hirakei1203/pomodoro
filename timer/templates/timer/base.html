@@ -39,7 +39,7 @@
       <a href="{% url 'timer:index' %}" class="brand-logo"><i class="material-icons">timer</i>Original Pomodoro Timer</a>
       <ul class="right hide-on-med-and-down">
         {% if user.is_authenticated %}
-        <li> {{ user.name }} </li>
+        <li> User Name: {{ user.get_username }} </li>
         {% endif %}
         <li><a href="{% url 'timer:signup' %}"><i class="material-icons key-icon">account_box</i></a></li>
         <li><a href="{% url 'login' %}"><i class="material-icons key-icon">vpn_key</i></a></li>
