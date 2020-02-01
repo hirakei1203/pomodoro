@@ -10,6 +10,9 @@ from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from .forms import CustomUserCreationForm, LoginForm
 from .models import Setlist, Record
+import datetime
+import matplotlib.pyplot as plt
+import pytz
 
 
 def index(request):
@@ -64,10 +67,86 @@ class SetlistDetailView(LoginRequiredMixin, DetailView):
   model = Setlist
   template_name = "timer/user_timer.html"
 
+def draw_graph():
+    # 折れ線グラフを出力
+    today = datetime.date.today()
+    day1 = today - datetime.timedelta(days=6)
+    day2 = today - datetime.timedelta(days=5)
+    day3 = today - datetime.timedelta(days=4)
+    day4 = today - datetime.timedelta(days=3)
+    day5 = today - datetime.timedelta(days=2)
+    day6 = today - datetime.timedelta(days=1)
+    day1_data = Record.objects.filter(date=day1)
+    day2_data = Record.objects.filter(date=day2)
+    day3_data = Record.objects.filter(date=day3)
+    day4_data = Record.objects.filter(date=day4)
+    day5_data = Record.objects.filter(date=day5)
+    day6_data = Record.objects.filter(date=day6)
+    day7_data = Record.objects.filter(date=today)
+
+    
+    print(day1_data)
+    
+    day = [day1, day2, day3, day4, day5, day6, today]
+    print(day)
+    cost = [0 for i in range(7)]
+
+    text_day = ','.join(list(map(str, day)))
+    text_cost = ','.join(list(map(str, cost)))
+    
+    json_template = """var json = {
+            type: 'bar',
+            data: {
+                labels: [
+        """ + str(text_day) + """    #x軸
+                ],
+                datasets: [{
+                    label: '支出',
+                    data: [
+        """ + str(text_cost) + """    #y軸
+                    ],
+                    borderWidth: 2,
+                    strokeColor: 'rgba(0,0,255,1)',    #棒グラフの淵の線の色
+                    backgroundColor: 'rgba(0,191,255,0.5)'    #棒グラフの塗りつぶしの色
+                }]
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        },
+                        scaleLabel: {
+                            display: true,    #x軸のラベルを表示
+                            labelString: '日付',
+                            fontsize: 18
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: '支出額 (円)',
+                            fontsize: 18
+                        }
+                    }]
+                },
+                responsive: true
+            }
+        }
+        """
+        # with open('timer/static/timer/timer.js', 'w') as f:
+        #     f.write(json_template)
+
+
 class RecordDetailView(LoginRequiredMixin, DetailView):
   model = Record
   template_name = "timer/record_detail.html"
-  
+  draw_graph()
+
+
 
 
 def test_ajax_response(request):
@@ -76,7 +155,8 @@ def test_ajax_response(request):
   current_user_id = request.user.id
   task_min = input_text[0]
   break_min = input_text[2]
-  today = str(timezone.now())
+  # 以下date関数を足してます
+  today = str(timezone.date.now())
 
   # Setlistモデルに対する処理
   current_setlist = Setlist.objects.get(user_id = current_user_id)

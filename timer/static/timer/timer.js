@@ -186,6 +186,11 @@ document.onkeydown = function(event) {
   };
 }
 
+// chart.jsによる棒グラフの記述-------------------
+var ctx = document.getElementById("bar_graph");
+ctx.canvas.width = 400;
+ctx.canvas.height = 290;
+var myChart = new Chart(ctx, json);    #変数jsonはdata.jsに書く
 
 })
 
