@@ -40,7 +40,7 @@
       <ul class="right hide-on-med-and-down">
         {% if user.is_authenticated %}
         <li> User Name: {{ user.get_username }} </li>
-        <li><a href="{% url 'timer:signup' %}"><i class="material-icons key-icon">account_box</i></a></li>
+        <li><a href="{% url 'timer:user_timer_page' user.pk %}"><i class="material-icons key-icon">account_box</i></a></li>
         <li><a href="{% url 'logout' %}"><i class="material-icons key-icon">vpn_key</i></a></li>
         <li><a href="mobile.html"><i class="material-icons data-icon">assessment</i></a></li>
         {% else %}

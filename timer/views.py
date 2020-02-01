@@ -21,6 +21,8 @@ def signup(request):
           user_instance =  form.save()
           login(request, user_instance)
           pk = user_instance.id
+          default_setlist = Setlist(workTime = 25, restTime = 5, cycleNumber = 4, longRestTime = 15, user_id = pk)
+          default_setlist.save()
           print(pk)
           # return render(request, 'timer:user_timer_page', pk)
           success_url = reverse_lazy("timer:user_timer_page")
@@ -40,12 +42,14 @@ def signup(request):
 class LoginView(LoginView):
   """ログインページ"""
   form_class = LoginForm
-  # template_name = 'timer/index.html'
+  # template_name = 'timer/login.html'
 
   def get_success_url(self):
     print('success')
     url = self.get_redirect_url()
-    return url or resolve_url('timer:user_timer_page', pk=self.request.user.pk)
+    # success_url = reverse_lazy('timer:user_timer_page', pk=self.request.user.pk)
+    # return url or resolve_url('timer:user_timer_page', pk=self.request.user.pk)
+    return 
 
 class LogoutView(LogoutView):
     """ログアウトページ"""
