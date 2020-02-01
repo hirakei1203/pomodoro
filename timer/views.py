@@ -63,6 +63,13 @@ class SetlistDetailView(LoginRequiredMixin, DetailView):
   model = Setlist
   template_name = "timer/user_timer.html"
 
+def calculation_daily_total_time(list):
+    daily_total_time = 0
+    for single_record in list:
+      single_workTime = single_record.setlist.workTime
+      daily_total_time += single_workTime
+    return daily_total_time
+
 def draw_graph():
     # 折れ線グラフを出力
     today = datetime.date.today()
@@ -73,32 +80,24 @@ def draw_graph():
     day5 = today - datetime.timedelta(days=2)
     day6 = today - datetime.timedelta(days=1)
 
-
     day1_data = Record.objects.filter(date__date=day1)
-    day2_data = Record.objects.filter(date=day2)
-    day3_data = Record.objects.filter(date=day3)
-    day4_data = Record.objects.filter(date=day4)
-    day5_data = Record.objects.filter(date=day5)
-    day6_data = Record.objects.filter(date=day6)
+    day2_data = Record.objects.filter(date__date=day2)
+    day3_data = Record.objects.filter(date__date=day3)
+    day4_data = Record.objects.filter(date__date=day4)
+    day5_data = Record.objects.filter(date__date=day5)
+    day6_data = Record.objects.filter(date__date=day6)
     day7_data = Record.objects.filter(date__date=today)
 
-    # pk4_data = Record.objects.filter(pk=11)
-    print(today)
-    # print(pk4_data)
-    # print(pk4_data[0])
-    # a = dir(pk4_data[0])
-    # print(a)
-    # print(pk4_data[0].pk)
-    # print(pk4_data[0].date)
-    # print(pk4_data[0].setlist_id)
-    print(day7_data)
-    
+    print(day1_data)
+    day1_total_workTime = calculation_daily_total_time(day1_data)
+
+    print(day1_total_workTime)
     day = [day1, day2, day3, day4, day5, day6, today]
-    print(day)
-    cost = [0 for i in range(7)]
+    daily_total_time = [0 for i in range(7)]
+
 
     text_day = ','.join(list(map(str, day)))
-    text_cost = ','.join(list(map(str, cost)))
+    text_cost = ','.join(list(map(str, daily_total_time)))
     
     json_template = """var json = {
             type: 'bar',
