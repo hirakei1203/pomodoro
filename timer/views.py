@@ -29,10 +29,6 @@ def signup(request):
           default_setlist.save()
           print(pk)
           return redirect("timer:index")
-          # return render(request, 'timer:user_timer_page', pk)
-          # success_url = reverse_lazy("timer:user_timer_page")
-          # setlist_id = default_setlist.id
-          # return reverse('timer:user_timer_page', kwargs={'pk': setlist_id})
       else:
         print("invalid")
   else:
@@ -76,16 +72,26 @@ def draw_graph():
     day4 = today - datetime.timedelta(days=3)
     day5 = today - datetime.timedelta(days=2)
     day6 = today - datetime.timedelta(days=1)
-    day1_data = Record.objects.filter(date=day1)
+
+
+    day1_data = Record.objects.filter(date__date=day1)
     day2_data = Record.objects.filter(date=day2)
     day3_data = Record.objects.filter(date=day3)
     day4_data = Record.objects.filter(date=day4)
     day5_data = Record.objects.filter(date=day5)
     day6_data = Record.objects.filter(date=day6)
-    day7_data = Record.objects.filter(date=today)
+    day7_data = Record.objects.filter(date__date=today)
 
-    
-    print(day1_data)
+    # pk4_data = Record.objects.filter(pk=11)
+    print(today)
+    # print(pk4_data)
+    # print(pk4_data[0])
+    # a = dir(pk4_data[0])
+    # print(a)
+    # print(pk4_data[0].pk)
+    # print(pk4_data[0].date)
+    # print(pk4_data[0].setlist_id)
+    print(day7_data)
     
     day = [day1, day2, day3, day4, day5, day6, today]
     print(day)
@@ -155,8 +161,7 @@ def test_ajax_response(request):
   current_user_id = request.user.id
   task_min = input_text[0]
   break_min = input_text[2]
-  # 以下date関数を足してます
-  today = str(timezone.date.now())
+  today = str(timezone.now())
 
   # Setlistモデルに対する処理
   current_setlist = Setlist.objects.get(user_id = current_user_id)
