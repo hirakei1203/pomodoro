@@ -3,7 +3,7 @@
 {% block content %}
 
 <h1>7日間の記録</h1>
-<div>
+<div class="graph_area">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
 <canvas id="bargraph"></canvas>
 </div>
@@ -11,8 +11,6 @@
 
 <script>
   var ctx = document.getElementById("bargraph").getContext("2d");
-  ctx.canvas.width = 400;
-  ctx.canvas.height = 290;
   var myBar = new Chart(ctx, 
   {
             type: 'bar',
