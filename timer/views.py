@@ -88,31 +88,39 @@ def draw_graph():
     day6_data = Record.objects.filter(date__date=day6)
     day7_data = Record.objects.filter(date__date=today)
 
-    print(day1_data)
-    day1_total_workTime = calculation_daily_total_time(day1_data)
+    # day1_total_workTime = calculation_daily_total_time(day1_data)
 
-    print(day1_total_workTime)
+    daily_total_time = []
     day = [day1, day2, day3, day4, day5, day6, today]
-    daily_total_time = [0 for i in range(7)]
-
-
-    text_day = ','.join(list(map(str, day)))
-    text_cost = ','.join(list(map(str, daily_total_time)))
+    daily_total_time.append(calculation_daily_total_time(day1_data))
+    daily_total_time.append(calculation_daily_total_time(day2_data))
+    daily_total_time.append(calculation_daily_total_time(day3_data))
+    daily_total_time.append(calculation_daily_total_time(day4_data))
+    daily_total_time.append(calculation_daily_total_time(day5_data))
+    daily_total_time.append(calculation_daily_total_time(day6_data))
+    daily_total_time.append(calculation_daily_total_time(day7_data))
     
-    json_template = """var json = {
+    text_day = ','.join(list(map(str, day)))
+    text_time = ','.join(list(map(str, daily_total_time)))
+    yokoziku = str(text_day)
+    tateziku = str(text_time)
+    print(text_day)
+    print(yokoziku)
+
+    json_template = """{
             type: 'bar',
             data: {
                 labels: [
-        """ + str(text_day) + """    #x軸
+        """ + str(text_day) + """ 
                 ],
                 datasets: [{
                     label: '支出',
                     data: [
-        """ + str(text_cost) + """    #y軸
+        """ + str(text_time) + """   
                     ],
                     borderWidth: 2,
-                    strokeColor: 'rgba(0,0,255,1)',    #棒グラフの淵の線の色
-                    backgroundColor: 'rgba(0,191,255,0.5)'    #棒グラフの塗りつぶしの色
+                    strokeColor: 'rgba(0,0,255,1)',   
+                    backgroundColor: 'rgba(0,191,255,0.5)'    
                 }]
             },
             options: {
@@ -122,7 +130,7 @@ def draw_graph():
                             beginAtZero:true
                         },
                         scaleLabel: {
-                            display: true,    #x軸のラベルを表示
+                            display: true, 
                             labelString: '日付',
                             fontsize: 18
                         }
@@ -140,17 +148,90 @@ def draw_graph():
                 },
                 responsive: true
             }
-        }
-        """
-        # with open('timer/static/timer/timer.js', 'w') as f:
-        #     f.write(json_template)
+        }"""
+    
+    # json_template = """var json = {
+    #   type: 'bar',
+    #       data: {
+    #           labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    #           datasets: [{
+    #               label: '# of Votes',
+    #               data: [12, 19, 3, 5, 2, 3],
+    #               backgroundColor: [
+    #                   'rgba(255, 99, 132, 0.2)',
+    #                   'rgba(54, 162, 235, 0.2)',
+    #                   'rgba(255, 206, 86, 0.2)',
+    #                   'rgba(75, 192, 192, 0.2)',
+    #                   'rgba(153, 102, 255, 0.2)',
+    #                   'rgba(255, 159, 64, 0.2)'
+    #               ],
+    #               borderColor: [
+    #                   'rgba(255, 99, 132, 1)',
+    #                   'rgba(54, 162, 235, 1)',
+    #                   'rgba(255, 206, 86, 1)',
+    #                   'rgba(75, 192, 192, 1)',
+    #                   'rgba(153, 102, 255, 1)',
+    #                   'rgba(255, 159, 64, 1)'
+    #               ],
+    #               borderWidth: 1
+    #           }]
+    #       },
+    #       options: {
+    #           scales: {
+    #               yAxes: [{
+    #                   ticks: {
+    #                       beginAtZero: true
+    #                   }
+    #               }]
+    #           }
+    #       }
+    #     }
+    # """
+
+
+    # with open('timer/static/timer/data.js', 'w') as f:
+    #     f.write(json_template)
 
 
 class RecordDetailView(LoginRequiredMixin, DetailView):
   model = Record
   template_name = "timer/record_detail.html"
-  draw_graph()
+  
+  def get_context_data(self, **kwargs):
+          context = super().get_context_data(**kwargs) # はじめに継承元のメソッドを呼び出す
+          today = datetime.date.today()
+          day1 = today - datetime.timedelta(days=6)
+          day2 = today - datetime.timedelta(days=5)
+          day3 = today - datetime.timedelta(days=4)
+          day4 = today - datetime.timedelta(days=3)
+          day5 = today - datetime.timedelta(days=2)
+          day6 = today - datetime.timedelta(days=1)
 
+          day1_data = Record.objects.filter(date__date=day1)
+          day2_data = Record.objects.filter(date__date=day2)
+          day3_data = Record.objects.filter(date__date=day3)
+          day4_data = Record.objects.filter(date__date=day4)
+          day5_data = Record.objects.filter(date__date=day5)
+          day6_data = Record.objects.filter(date__date=day6)
+          day7_data = Record.objects.filter(date__date=today)
+
+          daily_total_time = []
+          day = [day1, day2, day3, day4, day5, day6, today]
+          daily_total_time.append(calculation_daily_total_time(day1_data))
+          daily_total_time.append(calculation_daily_total_time(day2_data))
+          daily_total_time.append(calculation_daily_total_time(day3_data))
+          daily_total_time.append(calculation_daily_total_time(day4_data))
+          daily_total_time.append(calculation_daily_total_time(day5_data))
+          daily_total_time.append(calculation_daily_total_time(day6_data))
+          daily_total_time.append(calculation_daily_total_time(day7_data))
+          
+          text_day = ','.join(list(map(str, day)))
+          text_time = ','.join(list(map(str, daily_total_time)))
+          yokoziku = str(text_day)
+          tateziku = str(text_time)
+
+          context["tateziku"] = tateziku
+          return context
 
 
 

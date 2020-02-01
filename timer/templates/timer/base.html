@@ -24,7 +24,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.1/js/materialize.min.js" integrity="sha256-SrBfGi+Zp2LhAvy9M1bWOCXztRU9Ztztxmu5BcYPcPE=" crossorigin="anonymous"></script>
     <script src="{% static 'timer/timer.js' %}"><script>
-    
+    <script src="{% static 'timer/data.js' %}"><script>
+    <script src="{% static 'timer/draw.js' %}"><script>
+
+
+
     $(document).ready(function(){
       // Initialize materialize data picker
       $('.datepicker').datepicker({'format': 'yyyy-mm-dd'});
@@ -42,11 +46,10 @@
         <li> User Name: {{ user.username }} </li>
         <li><a href="{% url 'timer:user_timer_page' user.pk %}"><i class="material-icons key-icon">account_box</i></a></li>
         <li><a href="{% url 'logout' %}"><i class="material-icons key-icon">vpn_key</i></a></li>
-        <li><a href="mobile.html"><i class="material-icons data-icon">assessment</i></a></li>
+        <li><a href="{% url 'timer:record_detail' user.pk %}"><i class="material-icons data-icon">assessment</i></a></li>
         {% else %}
         <li><a href="{% url 'timer:signup' %}"><i class="material-icons key-icon">account_box</i></a></li>
         <li><a href="{% url 'login' %}"><i class="material-icons key-icon">vpn_key</i></a></li>
-        <li><a href="mobile.html"><i class="material-icons data-icon">assessment</i></a></li>
         {% endif %}
       </ul>
     </div>

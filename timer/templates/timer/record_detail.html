@@ -3,8 +3,69 @@
 {% block content %}
 
 <h1>7日間の記録</h1>
-<canvas id="bar_graph"></canvas>
+<div><a>{{tateziku}}</a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+<canvas id="bargraph"></canvas>
+</div>
 
 
+<script>
+  console.log({{ tateziku }})
+  var ctx = document.getElementById("bargraph").getContext("2d");
+  ctx.canvas.width = 400;
+  ctx.canvas.height = 290;
+  var myBar = new Chart(ctx, 
+  {
+            type: 'bar',
+            data: {
+                labels: [
+            'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'
+                ],
+                datasets: [{
+                    label: '支出',
+                    data: [
+                    12, 19, 3, 5, 2, 3
+                    ],
+                    borderWidth: 2,
+                    strokeColor: 'rgba(0,0,255,1)',   
+                    backgroundColor: 'rgba(0,191,255,0.5)'    
+                }]
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        },
+                        scaleLabel: {
+                            display: true, 
+                            labelString: '日付',
+                            fontsize: 18
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: '支出額 (円)',
+                            fontsize: 18
+                        }
+                    }]
+                },
+                responsive: true
+            }
+        }
+  
+  
+  
+  
+  
+  
+  
+  
+  )
+</script>
 
 {% endblock %}
