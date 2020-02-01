@@ -63,6 +63,10 @@ class SetlistDetailView(LoginRequiredMixin, DetailView):
   model = Setlist
   template_name = "timer/user_timer.html"
 
+def day_extract(day):
+  day_string = str(day.year) + str(day.month) + str(day.day)
+  return day_string
+
 def calculation_daily_total_time(list):
     daily_total_time = 0
     for single_record in list:
@@ -215,8 +219,18 @@ class RecordDetailView(LoginRequiredMixin, DetailView):
           day6_data = Record.objects.filter(date__date=day6)
           day7_data = Record.objects.filter(date__date=today)
 
+          days = []
+          days.append(day_extract(day1))
+          days.append(day_extract(day2))
+          days.append(day_extract(day3))
+          days.append(day_extract(day4))
+          days.append(day_extract(day5))
+          days.append(day_extract(day6))
+          days.append(day_extract(today))
+          print(days)
+
+          # print(day)
           daily_total_time = []
-          day = [day1, day2, day3, day4, day5, day6, today]
           daily_total_time.append(calculation_daily_total_time(day1_data))
           daily_total_time.append(calculation_daily_total_time(day2_data))
           daily_total_time.append(calculation_daily_total_time(day3_data))
@@ -225,12 +239,13 @@ class RecordDetailView(LoginRequiredMixin, DetailView):
           daily_total_time.append(calculation_daily_total_time(day6_data))
           daily_total_time.append(calculation_daily_total_time(day7_data))
           
-          text_day = ','.join(list(map(str, day)))
+          text_day = ','.join(list(map(str, days)))
           text_time = ','.join(list(map(str, daily_total_time)))
-          yokoziku = str(text_day)
-          tateziku = str(text_time)
+          x_axis_data = text_day
+          y_axis_data = str(text_time)
 
-          context["tateziku"] = tateziku
+          context["yokoziku"] = x_axis_data
+          context["tateziku"] = y_axis_data
           return context
 
 

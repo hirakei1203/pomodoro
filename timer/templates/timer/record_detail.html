@@ -3,14 +3,13 @@
 {% block content %}
 
 <h1>7日間の記録</h1>
-<div><a>{{tateziku}}</a>
+<div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
 <canvas id="bargraph"></canvas>
 </div>
 
 
 <script>
-  console.log({{ tateziku }})
   var ctx = document.getElementById("bargraph").getContext("2d");
   ctx.canvas.width = 400;
   ctx.canvas.height = 290;
@@ -19,12 +18,12 @@
             type: 'bar',
             data: {
                 labels: [
-            'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'
-                ],
+               {{ yokoziku }}
+              ],
                 datasets: [{
-                    label: '支出',
+                    label: '作業時間[min]',
                     data: [
-                    12, 19, 3, 5, 2, 3
+                    {{ tateziku }}
                     ],
                     borderWidth: 2,
                     strokeColor: 'rgba(0,0,255,1)',   
@@ -49,7 +48,7 @@
                         },
                         scaleLabel: {
                             display: true,
-                            labelString: '支出額 (円)',
+                            labelString: '作業時間 (分)',
                             fontsize: 18
                         }
                     }]
