@@ -120,6 +120,11 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "timer:index"
+LOGOUT_REDIRECT_URL = "timer:index"
+
 AUTH_USER_MODEL = 'timer.User'
 
 STATICFILES_DIRS = [                  
@@ -131,7 +136,6 @@ SASS_PROCESSOR_INCLUDE_FILE_PATTERN = r'^.+\.(sass|scss)$'
 SASS_OUTPUT_STYLE = 'compressed'
 SASS_TEMPLATE_EXTS = ['.html', '.haml']
 
-LOGIN_REDIRECT_URL = "timer:user_timer_page"
-LOGOUT_REDIRECT_URL = "timer:index"
-LOGIN_URL = "login"
+
+
 

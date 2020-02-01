@@ -6,7 +6,8 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, resolve_url
 from django.views.generic import ListView, DetailView
 from django.utils import timezone
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
+from django.http import HttpResponseRedirect
 from .forms import CustomUserCreationForm, LoginForm
 from .models import Setlist, Record
 
@@ -21,12 +22,14 @@ def signup(request):
           user_instance =  form.save()
           login(request, user_instance)
           pk = user_instance.id
-          default_setlist = Setlist(workTime = 25, restTime = 5, cycleNumber = 4, longRestTime = 15, user_id = pk)
+          default_setlist = Setlist(id = pk, workTime = 25, restTime = 5, cycleNumber = 4, longRestTime = 15, user_id = pk)
           default_setlist.save()
           print(pk)
+          return redirect("timer:index")
           # return render(request, 'timer:user_timer_page', pk)
-          success_url = reverse_lazy("timer:user_timer_page")
-
+          # success_url = reverse_lazy("timer:user_timer_page")
+          # setlist_id = default_setlist.id
+          # return reverse('timer:user_timer_page', kwargs={'pk': setlist_id})
       else:
         print("invalid")
   else:
@@ -42,14 +45,16 @@ def signup(request):
 class LoginView(LoginView):
   """ログインページ"""
   form_class = LoginForm
-  # template_name = 'timer/login.html'
+  template_name = 'registration/login.html'
 
   def get_success_url(self):
     print('success')
     url = self.get_redirect_url()
-    # success_url = reverse_lazy('timer:user_timer_page', pk=self.request.user.pk)
-    # return url or resolve_url('timer:user_timer_page', pk=self.request.user.pk)
-    return 
+    # return resolve_url('timer:user_timer_page', pk=self.request.user.pk)
+    setlist_id = Setlist.objects.get(user_id = self.request.user.pk).id
+    return reverse('timer:user_timer_page', kwargs={'pk': setlist_id})
+    # url = reverse('timer:user_timer_page', kwargs={'pk': setlist_id})
+    # return HttpResponseRedirect(url)
 
 class LogoutView(LogoutView):
     """ログアウトページ"""
