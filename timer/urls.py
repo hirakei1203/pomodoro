@@ -11,4 +11,6 @@ urlpatterns = [
     path('ajax/', views.test_ajax_response),
     path('login/', views.LoginView.as_view(), name='login'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
+    path('record/<int:pk>/', views.RecordDetailView.as_view(), name='record_detail'),
+    path('record/<int:pk>/plot/', views.get_svg, name='record_plot'),
     ]

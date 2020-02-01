@@ -64,6 +64,12 @@ class SetlistDetailView(LoginRequiredMixin, DetailView):
   model = Setlist
   template_name = "timer/user_timer.html"
 
+class RecordDetailView(LoginRequiredMixin, DetailView):
+  model = Record
+  template_name = "timer/record_detail.html"
+  
+
+
 def test_ajax_response(request):
   # データのセット
   input_text = request.POST.getlist("ajax_box")
